@@ -79,10 +79,62 @@
 <li>use “bugfix”, “#38405”, etc</li>
 </ul>
 <h5 id="Check-the-commit"><a href="#Check-the-commit" class="headerlink" title="Check the commit:"></a>Check the commit:</h5>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git log  // check all the commit history</span><br><span class="line">git log -n 5    // check the last 5 commits</span><br><span class="line">git log --since=2019-01-01   // check the commits since 2019-01-01</span><br><span class="line">git log --until=2019-01-01   // check the commits before 2019-01-01</span><br><span class="line">git log --author=&quot;name/part of the name&quot;  //check commits by author</span><br><span class="line">git log --grep=&quot;anything you want to search&quot;   </span><br><span class="line">     //check the relevant commits (general regular expression)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Git-architecture"><a href="#4-Git-architecture" class="headerlink" title="4. Git architecture"></a>4. Git architecture</h3><p>   working directory (the work here is not tracked) –add– staging index (the work here is about to be committed) –commit– repository (the work here is tracked)</p>
+<p>   The numbers for each commit is Hash value or SHA-1 value.</p>
+<p>   Question: </p>
+<ol>
+<li>If a bad actor tampers with a file in an old version of a repository, the changed checksum would generate an error on access of that version or a descendant.</li>
+<li>If you view the content of .git/HEAD (this is a file) and find the contents ‘ref: refs/heads/new’(this is the record in that file), it means ‘HEAD currently points to a commit in branch new.’  If you checkout another branch, the contents of .git/refs/heads/new will not change, but the .git/HEAD contents will.</li>
+</ol>
+<h3 id="5-Make-changes-to-files"><a href="#5-Make-changes-to-files" class="headerlink" title="5. Make changes to files"></a>5. Make changes to files</h3><ul>
+<li><p><strong>Check status</strong>: After the commit and before editing add command, ‘git status’ will show nothing in the working tree.</p>
+</li>
+<li><p><strong>Red Name</strong>: After editing without adding, ‘git status’ shows the red file names (means not tracked), which don’t have any operation. New file, or The file is different from what was tracked, and it is edited but not tracked.</p>
+</li>
+<li><p><strong>Green Name</strong>: After adding the file, ‘get status’ shows the file name green (tracked in staging index)</p>
+</li>
+<li><p><strong>Head movement info</strong>: in ‘get log’, <strong>BRANCH</strong>: (HEAD -&gt; branchName) shows the located branch name, and <strong>FILE LOCATION</strong>: the line that info locates shows which document is being pointed.</p>
+</li>
+<li><p><strong>Check the changes in the working area</strong>: after this command, the file in the working place will be compared with in the staging index. ‘-‘shows what is deleted, and ‘+’ shows what is added.</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git diff   // comparing working with staging files</span><br><span class="line">git diff --staged    // comparing staging with repository files</span><br><span class="line">git diff --color-words   // shows the exact change content in two colors</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>delete documents which has been committed from the working place</strong>: ‘git status’ shows ‘deleted: fileName’ in red. It means the tracked file disappeared from the local. If let git accept this delete, use: </p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm fileName  // delete the file by hand first and use this command, //or delete the file from the local permanently by this command and move the delete info to the staging index</span><br><span class="line">git commit -m &quot;change name&quot;  // pass the info to the repository</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Rename and move files</strong>: <strong>Method 1</strong>: After the file is renamed, ‘git status’ shows the-old-name-file was deleted, and the-new-name-file is not tracked. </p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm the-old-name-file   //move the old file out, no track any more</span><br><span class="line">git add the-new-name-file    //add the new file in</span><br></pre></td></tr></table></figure>
+<p> Then ‘git status’ show “renamed: old-name-file -&gt; new-name-file</p>
+</li>
+<li><p><strong>Method 2</strong>: rename equals move, b/c its path is moved after changing the name. This can make the staging step show green rename info.</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git mv old-file-name new-file-name</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Move the file to a new folder</strong>: <pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git mv file-name  new-folder-name/file-name</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>show old change</strong>: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show logNumber --color-words</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>add+commit together</strong>: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &quot;change content&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>compare the much older change with the new one</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show older-logNumber..new-logNumber(or HEAD) --color-words</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>commit multiple lines comments</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -a // a file will pop out, and a line b/t the lines is needed(markdown)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>multiple changes in a few file</strong>: suggest to commit them separately by their change type. That will be easier to check later by logNumber.</p>
+</li>
+</ul>
+<h3 id="6-CMD-command"><a href="#6-CMD-command" class="headerlink" title="6. CMD command"></a>6. CMD command</h3><ul>
+<li>To use VS Code to edit the file, locate CMD to the folder, and use the command: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code .</span><br></pre></td></tr></table></figure>
+ Then pick the file you want to edit.</li>
+</ul>
+<pre><code>* Clean CMD screen: cls - enter
+* When imputing a fine name, use *Tab* key to fill most part of the name.
+</code></pre>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/08/22/Git-Github-Basic-Knowledge/" data-id="ckso6djwd000014ujakpc0m41" data-title="Git-Github-Basic-Knowledge" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/08/22/Git-Github-Basic-Knowledge/" data-id="ckstssjl00001okuj4hb80s6z" data-title="Git-Github-Basic-Knowledge" class="article-share-link">Share</a>
       
       
       
@@ -132,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/08/22/Hexo-Blog-Construction/" data-id="ckso6djwi000114uj194xa77p" data-title="Hexo Blog Construction" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/08/22/Hexo-Blog-Construction/" data-id="ckstssjkv0000okujfdqv2vki" data-title="Hexo Blog Construction" class="article-share-link">Share</a>
       
       
       
