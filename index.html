@@ -70,7 +70,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h3 id="1-Config-Git"><a href="#1-Config-Git" class="headerlink" title="1. Config Git"></a>1. Config Git</h3><h3 id="2-Initialize-a-repository"><a href="#2-Initialize-a-repository" class="headerlink" title="2. Initialize a repository"></a>2. Initialize a repository</h3><p>   Create a folder in the position you want.<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd location  // navigate CMD to this folder.  </span><br><span class="line">dir  // check the contents in the folder  </span><br></pre></td></tr></table></figure><br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init  // create a local repository</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-Commit-to-the-local-repository"><a href="#3-Commit-to-the-local-repository" class="headerlink" title="3. Commit to the local repository"></a>3. Commit to the local repository</h3><p>   After the document in the folder is changed, it should be submitted.<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .  // add all documents</span><br><span class="line">git commit -m &quot;commitName&quot;   // commit to the repository   </span><br></pre></td></tr></table></figure><br>   <strong>The suggestions for commit message:</strong>   </p>
+<h3 id="3-Commit-to-the-local-repository"><a href="#3-Commit-to-the-local-repository" class="headerlink" title="3. Commit to the local repository"></a>3. Commit to the local repository</h3><p>   After the document in the folder is changed, it should be submitted.<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .  // add all documents</span><br><span class="line">git add partName*  //add the docs which have the partName</span><br><span class="line">git commit -m &quot;commitName&quot;   // commit to the repository   </span><br></pre></td></tr></table></figure><br>   <strong>The suggestions for commit message:</strong>   </p>
 <ul>
 <li>be detailed, clear and descriptive about the changes;   </li>
 <li>use present tense;   </li>
@@ -130,11 +130,21 @@
 <pre><code>* Clean CMD screen: cls - enter
 * When imputing a fine name, use *Tab* key to fill most part of the name.
 </code></pre>
+<h3 id="7-Undo-changes"><a href="#7-Undo-changes" class="headerlink" title="7. Undo changes"></a>7. Undo changes</h3><ul>
+<li><p><strong>Recover from the repository</strong>: If sth is deleted accidentally, we can checkout the last doc from repository:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- fileName  //just checkout from the library, -- means the current branch</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Pull doc from the stage index back to the working place</strong> : use this command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get reset HEAD fileName // set the HEAD to the working place again</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>change the last comments in the repository</strong>: have already submitted to repository, and re-submit with changes<br>Only can change the last commit comments.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get commit --amend -m &quot;new comments&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>**pull the old doc from repository to the other two places, and change it and **: the working place and the staged index will have the same old doc, and the staged index shows the green name(doc has been added)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout SHAnumber -- fileName</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/08/22/Git-Github-Basic-Knowledge/" data-id="ckstssjl00001okuj4hb80s6z" data-title="Git-Github-Basic-Knowledge" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/08/22/Git-Github-Basic-Knowledge/" data-id="ckswnp8ky0000ggujhmmm8q4r" data-title="Git-Github-Basic-Knowledge" class="article-share-link">Share</a>
       
       
       
@@ -184,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/08/22/Hexo-Blog-Construction/" data-id="ckstssjkv0000okujfdqv2vki" data-title="Hexo Blog Construction" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/08/22/Hexo-Blog-Construction/" data-id="ckswnp8lc0001ggujcutv8b9z" data-title="Hexo Blog Construction" class="article-share-link">Share</a>
       
       
       
